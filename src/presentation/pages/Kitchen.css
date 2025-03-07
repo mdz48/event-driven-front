@@ -1,0 +1,22 @@
+.kitchen-container {
+  width: 100%;
+}
+
+.kitchen-header {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.kitchen-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.kitchen-header p {
+  opacity: 0.9;
+}

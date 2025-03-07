@@ -26,4 +26,13 @@ export class AxiosOrderRepository implements OrderRepository {
       return [];
     }
   }
+
+  async updateStatus(orderId: string, status: string): Promise<void> {
+    try {
+      await axios.patch(`http://localhost:8000/orders/consumer`, { orderId, status });
+    } catch (error) {
+      // console.error('Error updating order status:', error);
+      throw error;
+    }
+  }
 }

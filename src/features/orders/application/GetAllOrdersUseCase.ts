@@ -1,6 +1,5 @@
-// src/features/orders/application/GetAllOrdersUseCase.ts
-import { Order } from "../domain/Order";
-import { OrderRepository } from "../domain/OrderRepository";
+import { Order } from "../domain/Order.ts";
+import { OrderRepository } from "../domain/OrderRepository.ts";
 
 export class GetAllOrdersUseCase {
   constructor(private orderRepository: OrderRepository) {}

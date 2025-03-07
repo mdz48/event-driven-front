@@ -1,0 +1,37 @@
+.home-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.home-content {
+  width: 100%;
+  max-width: 800px;
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.home-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.home-header h1 {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+.home-header p {
+  opacity: 0.9;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .home-content {
+    margin: 0 1rem;
+  }
+}

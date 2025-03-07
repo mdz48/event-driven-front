@@ -1,5 +1,5 @@
 export interface Order {
-    id?: string
+    id: string
     table_id: number
     product: string
     quantity: number

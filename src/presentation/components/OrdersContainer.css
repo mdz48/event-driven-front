@@ -1,0 +1,136 @@
+.orders-container {
+  padding: 1rem;
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.order-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  transition: var(--transition);
+  border-left: 4px solid #ccc;
+}
+
+.order-card.status-pending {
+  border-left-color: #ff9800;
+}
+
+.order-card.status-progress {
+  border-left-color: #2196f3;
+}
+
+.order-card.status-ready {
+  border-left-color: #4caf50;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.order-header h3 {
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+.order-time {
+  color: var(--light-text);
+  font-size: 0.9rem;
+}
+
+.order-details {
+  margin-bottom: 1rem;
+}
+
+.order-product {
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.order-quantity {
+  color: var(--light-text);
+}
+
+.order-status {
+  margin-bottom: 1rem;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.status-badge.status-pending {
+  background-color: #fff3e0;
+  color: #ff9800;
+}
+
+.status-badge.status-progress {
+  background-color: #e3f2fd;
+  color: #2196f3;
+}
+
+.status-badge.status-ready {
+  background-color: #e8f5e9;
+  color: #4caf50;
+}
+
+.order-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.btn-start {
+  background-color: #2196f3;
+  color: white;
+}
+
+.btn-ready {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-complete {
+  background-color: #9c27b0;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--light-text);
+}
+
+.no-orders {
+  text-align: center;
+  padding: 3rem;
+  color: var(--light-text);
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
