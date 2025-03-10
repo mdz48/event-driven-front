@@ -4,10 +4,12 @@ import './App.css';
 import Home from './presentation/pages/Home';
 import Kitchen from './presentation/pages/Kitchen';
 import Navbar from './presentation/components/Navbar';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <Router>
+      <Toaster />
       <div className="app">
         <Navbar />
         <main className="main-content">

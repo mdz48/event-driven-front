@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './OrdersContainer.css';
 import { Order } from '../../features/orders/domain/Order';
 import { AxiosOrderRepository } from '../../features/orders/infrastructure/orders_repository';
+import toast from 'react-hot-toast';
 
 export const OrdersContainer = () => {
   const [orders, setOrders] = useState<Order[]>([]);
-
-  // Crear una instancia del repositorio
   const orderRepository = new AxiosOrderRepository();
 
   useEffect(() => {
-    // Función para cargar los pedidos
     const fetchOrders = async () => {
       try {
         const fetchedOrders = await orderRepository.getAll();
@@ -25,18 +23,12 @@ export const OrdersContainer = () => {
 
   const handleUpdateStatus = async (orderId: string, newStatus: string) => {
     try {
-      // Usar el método del repositorio para actualizar el estado
-      await orderRepository.updateStatus(orderId, newStatus);
-
-      // Actualizar el estado local después de la actualización exitosa
-      setOrders(prevOrders =>
-        prevOrders.map(order =>
-          order.id === orderId ? { ...order, status: newStatus } : order
-        )
-      );
+      const updatedOrder = await orderRepository.updateStatus(orderId, newStatus);
+      setOrders(orders.map(order => (order.id === updatedOrder.id ? updatedOrder : order)));
+      toast.success('Estado actualizado correctamente');
     } catch (error) {
-      console.error('Error al actualizar el estado del pedido:', error);
-      alert('No se pudo actualizar el estado del pedido. Por favor, intenta nuevamente.');
+      console.error('Error al actualizar estado:', error);
+      toast.error('Error al actualizar el estado del pedido');
     }
   };
 
