@@ -1,6 +1,5 @@
-import React from 'react';
-import { OrdersContainer } from "../components/OrdersContainer";
 import './Kitchen.css';
+import {OrdersContainer} from "../components/OrdersContainer.tsx";
 
 export const Kitchen = () => {
   return (

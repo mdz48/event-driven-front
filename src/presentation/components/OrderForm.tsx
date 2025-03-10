@@ -1,19 +1,26 @@
 // src/features/orders/presentation/components/OrderForm.tsx
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { FormOrder } from '../../features/orders/domain/FormOrder';
 import './OrderForm.css';
+import { AxiosOrderRepository } from '../../features/orders/infrastructure/orders_repository';
+import toast from 'react-hot-toast';
+import { CreateOrderUseCase } from '../../features/orders/application/CreateOrderUseCase';
 
-interface OrderFormProps {
-  onSubmit: (order: FormOrder) => Promise<void>;
-  isLoading: boolean;
-}
 
-export const OrderForm = ({ onSubmit, isLoading }: OrderFormProps) => {
+
+export const OrderForm = () => {
+  const axiosOrderRepository = new AxiosOrderRepository();
+  const createOrderUseCase = new CreateOrderUseCase(axiosOrderRepository);
+  const tableIdRef = useRef(1)
+  const productRef = useRef('')
+  const quantityRef = useRef(0)
+  const statusRef = useRef('pending')
+
   const [order, setOrder] = useState<FormOrder>({
-    table_id: 1,
-    product: '',
-    quantity: 1,
-    status: 'pending'
+    table_id: tableIdRef.current,
+    product: productRef.current,
+    quantity: quantityRef.current,
+    status: statusRef.current
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -24,16 +31,22 @@ export const OrderForm = ({ onSubmit, isLoading }: OrderFormProps) => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await onSubmit(order);
-    setOrder({
-      table_id: 1,
-      product: '',
-      quantity: 1,
-      status: 'pending'
-    });
-  };
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        // Validar campos
+        if (!order.table_id || !order.product || !order.quantity) {
+            toast.error('Por favor completa todos los campos');
+            return;
+        }
+        try {
+        await createOrderUseCase.execute(order);
+        toast.success('Pedido enviado correctamente');
+        setOrder({ table_id: 1, product: '', quantity: 1, status: 'pending' });
+        } catch (error) {
+        console.error('Error al enviar el pedido:', error);
+        toast.error('Error al enviar el pedido');
+        }
+    };
 
   return (
     <div className="order-form-container">
@@ -83,9 +96,7 @@ export const OrderForm = ({ onSubmit, isLoading }: OrderFormProps) => {
             required
           />
         </div>
-        <button type="submit" disabled={isLoading} className="submit-btn">
-          {isLoading ? 'Enviando...' : 'Enviar Pedido'}
-        </button>
+        <button type="submit" className="submit-btn">Hacer Pedido</button>
       </form>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './OrdersContainer.css';
 import { Order } from '../../features/orders/domain/Order';
 import { AxiosOrderRepository } from '../../features/orders/infrastructure/orders_repository';
