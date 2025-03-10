@@ -3,27 +3,31 @@ import './OrdersContainer.css';
 import { Order } from '../../features/orders/domain/Order';
 import { AxiosOrderRepository } from '../../features/orders/infrastructure/orders_repository';
 import toast from 'react-hot-toast';
+import { UpdateOrderStatus } from '../../features/orders/application/UpdateOrderUseCase';
+import { GetAllOrdersUseCase } from '../../features/orders/application/GetAllOrdersUseCase';
 
 export const OrdersContainer = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const orderRepository = new AxiosOrderRepository();
+  const updateOrderUseCase = new UpdateOrderStatus(orderRepository);
+  const getAllOrdersUseCase = new GetAllOrdersUseCase(orderRepository)
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const fetchedOrders = await orderRepository.getAll();
-        setOrders(fetchedOrders);
+        const orders = await getAllOrdersUseCase.execute();
+        setOrders(orders);
       } catch (error) {
-        console.error('Error al cargar pedidos:', error);
+        console.error('Error al obtener pedidos:', error);
+        toast.error('Ocurrió un error al obtener los pedidos');
       }
-    };
-
+    }
     fetchOrders();
   }, []);
 
   const handleUpdateStatus = async (orderId: string, newStatus: string) => {
     try {
-      const updatedOrder = await orderRepository.updateStatus(orderId, newStatus);
+      const updatedOrder = await updateOrderUseCase.execute(orderId, newStatus);
       setOrders(orders.map(order => (order.id === updatedOrder.id ? updatedOrder : order)));
       toast.success('Estado actualizado correctamente');
     } catch (error) {

@@ -41,27 +41,35 @@ export const OrderForm = ({ onSubmit, isLoading }: OrderFormProps) => {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="table_id">Número de Mesa:</label>
-          <input
-            type="number"
+          <select
             id="table_id"
             name="table_id"
             value={order.table_id}
             onChange={handleChange}
-            min="1"
             required
-          />
+          >
+            <option value="">Selecciona una mesa</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="product">Productos:</label>
-          <input
-            type="text"
+          <select
             id="product"
             name="product"
             value={order.product}
             onChange={handleChange}
-            placeholder="Ej: Hamburguesa, Papas fritas, etc."
             required
-          />
+          >
+            <option value="">Selecciona un producto</option>
+            <option value="Pizza">Pizza</option>
+            <option value="Hamburguesa">Hamburguesa</option>
+            <option value="Hot Dog">Hot Dog</option>
+            <option value="Papas Fritas">Papas Fritas</option>
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="quantity">Cantidad:</label>

@@ -3,20 +3,22 @@ import { OrderForm } from '../components/OrderForm';
 import { FormOrder } from '../../features/orders/domain/FormOrder';
 import { AxiosOrderRepository } from '../../features/orders/infrastructure/orders_repository';
 import './Home.css';
+import toast from 'react-hot-toast';
+import { CreateOrderUseCase } from '../../features/orders/application/CreateOrderUseCase';
 
 export const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const orderRepository = new AxiosOrderRepository();
+  const createOrderUseCase = new CreateOrderUseCase(orderRepository);
 
   const handleSubmitOrder = async (order: FormOrder) => {
     try {
       setIsLoading(true);
-      // Usar el repositorio para crear la orden
-      await orderRepository.create(order);
-      alert('¡Pedido enviado con éxito!');
+      await createOrderUseCase.execute(order);
+      toast.success('Pedido enviado correctamente');
     } catch (error) {
       console.error('Error al enviar el pedido:', error);
-      alert('Error al enviar pedido. Por favor, intenta nuevamente.');
+      toast.error('Error al enviar el pedido');
     } finally {
       setIsLoading(false);
     }
